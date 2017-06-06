@@ -1,0 +1,47 @@
+
+<!--THIS IS USED FOR THE TEXT EDITOR-->
+<!--
+YOU MAY NEED TO USE THIS DIRECTLY FOR THE BACK END RATHER THAN JUST THE TEXT EDITOR ITSELF
+BECAUSE OF THE LINKS TO BOOTSTRAP AND JQUERY.  IN FUTURE PROJECTS YOU WILL NEED TO FIGURE SOMETHING ELSE OUT
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap1.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="css/backend/backend_styles.css"/>
+	<!--<link rel="stylesheet" type="text/css" href="css\backend\text_editor.css"/>-->
+
+</head>
+<body>
+----backend html loads
+<div id = "root"></div>
+<div id = 'container'></div>
+
+<!--<script type="text/javascript" src="css/bootstrap.js"></script>-->
+<script type="text/javascript">
+
+	window.onload = function(){
+		var txt  = document.getElementById("text_editor");
+		if(!txt){
+			console.error("text editor not found @window.onload in backend.html");
+		}else{
+		txt.designMode = "On";
+		}
+	}
+
+
+</script>
+<script type="text/javascript" src="css/bootstrap.min.js"></script>
+<script type="text/javascript" src = "vendor.js"></script>
+<!-- LINK TO TEXT EDITOR CODE BACK_BUNDLE TRANSPILED FROM INPUT.JSX BY WEBPACK-->
+<script type="text/javascript" src = "back_bundle.js"></script>
+
+
+</body>
+</html>

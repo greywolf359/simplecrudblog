@@ -1,0 +1,19 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	margin: 0 auto;
+	width: 60%;
+}
+.strip-top-margin{
+	margin-top: 0 !important;
+}
+.strip-bottom-margin{
+	margin-bottom: 5px !important;
+}
+
+.add-bottom-margin{
+	margin-bottom: 5px;
+}

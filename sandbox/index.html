@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<style>
+
+#circle{
+	border: 1px solid black;
+	position: relative;
+	border-radius: 10px;
+	background-color: red;
+	height: 50px;
+	width: 50px;
+	top: 0;
+	left: 0;
+}
+
+#text_editor{
+	height: 100px;
+	width: 100px;
+}
+
+.hide{
+	display: none;
+}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+window.onload = function(){
+	document.getElementById("text_editor")
+		.designMode = "On";
+		window.editor = document.getElementById("text_editor")
+
+		/*
+		function CheckThis(){
+			return {
+				tradMethod: function(){//points to parent function
+					console.log("this in traditional function method", this)
+				},
+				arrowMethod: ()=>{//points to global object
+					console.log("this in arrow function method", this);
+				}
+			}
+		}
+		CheckThis().tradMethod();
+		CheckThis().arrowMethod();
+
+		function NestedArrows(){
+
+			function declaration(){
+				console.log("nested traditional function:", this);
+			}
+			var arrow = ()=>{
+				console.log("nested arrow function:", this);
+				var sub_arrow = ()=>{
+					console.log("subnested arrow", this);
+				}
+				sub_arrow();
+			}
+
+			declaration();
+			arrow();
+		}
+		NestedArrows();
+
+		var obj = {
+			method(){//binds to parent
+				console.log("nested method new shorthand",this);
+			},
+			method2: function(){//binds to parent
+				console.log("nested method2 new shorthand",this);
+				this.method3("passed from method two");
+			},
+			method3: (x = "none")=>{//binds to global
+				console.log("method 3 arrow function", this, x);
+			}
+		}
+		obj.method();
+		obj.method2();
+		obj.method3();
+
+	*/
+	/*--------------------------------playing with scopes of arrows vs function statements
+	function doThis(){
+		console.log("inside doThis", this);
+		nestedFunction();
+		function nestedFunction(){
+			setTimeout(function(){
+				console.log("inside setTimeOut", this);//this is referring to window
+				setTimeout(function(){
+					console.log("nested inside setTimeout", this);
+				})
+			}, 2000)
+
+
+			function nestedFunction(){
+				console.log("THIS IS DRIVING ME NUTS", this);
+			}
+			nestedFunction();
+		}
+	}
+	doThis();
+
+	function SomeObj(){
+		console.log("inside someObj, call should fire",this);
+	}
+
+	
+
+	var BindObject = {
+		name: "ray"
+	}
+	SomeObj.call(BindObject);
+
+	//a this keyword in a function declaration will always point to the global object
+	//you will need to use an arrow function for a callback function to reference a parent
+	person = {
+		name: "jim",
+		printName: function(){
+			console.log("-", this)//refers to this person object
+			setTimeout(function(){//this is referring to window here
+				console.log("INSIDE OF PRINTNAME", this);
+			},3000)
+		},
+		printAnotherNameWithArrow: function(){
+			setTimeout(()=>{//this will point to parent object here and not the window
+				console.log("PRINTANOTHERNAMEWITHARROW", this);
+			},4000);
+
+			var tuna = ()=>{//this will point to parent 
+				console.log("INSIDE TUNA", this);
+			};
+			tuna();
+		}
+	}
+	person.printName();
+	person.printAnotherNameWithArrow();
+
+	String.prototype.doWhatever = function(){
+		console.log("this should add to string", thisxkc[0]);
+
+	}
+
+	var hammerStr = "hammer";
+	hammerStr.doWhatever();
+	---------------------------------*/
+
+	/*trying to understand prototypical inheritance*/
+	/*
+	function Person(){
+		this.name = "name not set"
+	}
+
+	Person.prototype = {
+		printName: function(){
+			console.log("print this", this);
+		}
+	}
+
+	//if Student wants access to the person constructor it must use call()
+	//object.create() does one of two things, it will return an empty object if you pass null,
+	//or it will copy a prototype object that is passed as arg
+	function Student(){
+		this.name = "student name not set";
+	}
+
+	Student.prototype = Object.create(Person.prototype);
+	console.log(Student.prototype);
+	console.log(Person.prototype);
+	*/
+	//---------------------------------------------
+
+	function Person(name){
+		//1. create empty object
+		//2.assign the vars __proto to Person.prototype
+		//3.  add any properties or methods defined in the function constructor to the empty this {}
+		//4. return it so that it gets put into the var, in this case "tom" as shown below
+		this.name = name;
+	}
+	
+	var obj = {name: 'tim'};
+	var obj2 = Object.create(obj);
+	var obj3 = {};
+	obj3.__proto__ = obj;
+	console.log(obj2.name);
+	console.log(obj3.name);
+
+	function Person(){
+		this.name = "tom";
+	}
+
+	Person.prototype.greet = "hello";
+	Person.prototype.bye = 'goodbye';
+	console.log('persons prototype property:', Person.prototype)
+	//so new keyword will point tom.__proto__ towards Person.prototype and anything within Person's prototype object will 
+	//appear in toms __proto__
+	var tom = new Person();
+	console.log("what is returned to tom after using new: ", tom);
+	
+	
+
+}
+</script>
+<!--
+<script src = "jquery.js"></script>
+<script src = "jquery2.js"></script>
+-->
+<div id = "text_editor" contentEditable="true"></div>
+<button onclick = "document.execCommand('bold',false)">Bold</button>
+<div id = "circle"></div>
+
+<!--comment node-->
+
+<h1>my page</h1>
+<div id = "content"></div>
+
+<button id = "getContent">Content</button>
+
+<div id = "container"></div>
+
+<div id = "parent_div">
+	<p>child 1</p>
+	<p>tchild 2</p>
+	<p>child 3</p>
+	<div>
+		<p>nested child 1</p>
+		<p>nested child 2</p>
+	</div>
+	<p>this is next sibling of div</p>
+	<p>this is next sibling of div</p>
+	<div><p>potato</p></div>
+</div>
+
+<div id = "prepend">
+	<p>This is your target</p>
+	<p>this is a middle sentence</p>
+	<p>this is the last sentence</p>
+</div>
+
+<div id = "data">
+	<p data-type = "vitamins">Vitamins</p>
+	<p data-type = "drinks">Drinks</p>
+	<p data-type = "bars">Bars</p>
+</div>
+<form id = "selection">
+<input type = "checkbox" id = "vitamins"><label for = "vitamins">Vitamins</label>
+<input type = "checkbox" id = "drinks"><label for = "vitamins">Drinks</label>
+<input type = "checkbox" id = "bars"><label for = "vitamins">Bars</label>
+</form>
+
+</body>
+</html>
